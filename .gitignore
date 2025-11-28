@@ -1,0 +1,25 @@
+# venv
+venv_tcc/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# CSVs
+dados/*.csv
+
+# Temp
+*.log
+*.tmp
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.swp
