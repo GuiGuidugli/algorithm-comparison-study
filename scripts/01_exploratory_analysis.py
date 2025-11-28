@@ -15,12 +15,12 @@ print("=" * 60)
 # Load datasets
 print("\n1. Loading datasets...")
 try:
-    ratings = pd.read_csv('../dados/rating.csv')
-    movies = pd.read_csv('../dados/movie.csv')
-    tags = pd.read_csv('../dados/tag.csv')
-    links = pd.read_csv('../dados/link.csv')
-    genome_scores = pd.read_csv('../dados/genome_scores.csv')
-    genome_tags = pd.read_csv('../dados/genome_tags.csv')
+    ratings = pd.read_csv('../data/rating.csv')
+    movies = pd.read_csv('../data/movie.csv')
+    tags = pd.read_csv('../data/tag.csv')
+    links = pd.read_csv('../data/link.csv')
+    genome_scores = pd.read_csv('../data/genome_scores.csv')
+    genome_tags = pd.read_csv('../data/genome_tags.csv')
     print("✓ All files loaded successfully!")
 except Exception as e:
     print(f"✗ Error loading files: {e}")
@@ -57,7 +57,6 @@ print(f"  Last rating: {ratings['date'].max()}")
 print(f"  Total period: {(ratings['date'].max() - ratings['date'].min()).days} days")
 
 # User analysis
-
 print("\n4. USER ANALYSIS")
 print("-" * 60)
 user_stats = ratings.groupby('userId').agg({
@@ -141,9 +140,9 @@ axes[1, 1].grid(alpha=0.3)
 
 plt.tight_layout()
 
-plt.savefig('../graficos/exploratory_analysis.png', dpi=300, bbox_inches='tight')
+plt.savefig('../charts/exploratory_analysis.png', dpi=300, bbox_inches='tight')
 
-print("✓ Charts saved to: ../graficos/exploratory_analysis.png")
+print("✓ Charts saved to: ../charts/exploratory_analysis.png")
 print("\n" + "=" * 60)
 print("ANALYSIS COMPLETED!")
 print("=" * 60)
