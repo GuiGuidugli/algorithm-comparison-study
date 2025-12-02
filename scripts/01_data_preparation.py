@@ -12,13 +12,24 @@ print("\n1. Loading original dataset...")
 ratings = pd.read_csv('../data/rating.csv')
 movies = pd.read_csv('../data/movie.csv')
 
-print(f"Original dataset:")
+if pd.api.types.is_numeric_dtype(ratings['timestamp']):
+    ratings['date'] = pd.to_datetime(ratings['timestamp'], unit='s')
+else:
+    ratings['date'] = pd.to_datetime(ratings['timestamp'])
+
+print("\n2. Filtering data for 2010-2015 period...")
+ratings = ratings[(ratings['date'].dt.year >= 2010) & (ratings['date'].dt.year <= 2015)]
+print(f"After time filtering:")
+print(f"Remaining ratings: {len(ratings):,}")
+print(f"Date range: {ratings['date'].min()} to {ratings['date'].max()}")
+
+print(f"Original dataset (2010-2015):")
 print(f"  Total ratings: {len(ratings):,}")
 print(f"  Unique users: {ratings['userId'].nunique():,}")
 print(f"  Unique movies: {ratings['movieId'].nunique():,}")
 
 # Filter users with at least 50 ratings
-print("\n2. Filtering users (minimum 50 ratings)...")
+print("\n3. Filtering users (minimum 50 ratings)...")
 user_counts = ratings['userId'].value_counts()
 valid_users = user_counts[user_counts >= 50].index
 ratings_filtered = ratings[ratings['userId'].isin(valid_users)]
@@ -29,7 +40,7 @@ print(f"  Remaining users: {ratings_filtered['userId'].nunique():,}")
 print(f"  Reduction: {(1 - len(ratings_filtered)/len(ratings)) * 100:.2f}%")
 
 # Filter movies with at least 20 ratings
-print("\n3. Filtering movies (minimum 20 ratings)...")
+print("\n4. Filtering movies (minimum 20 ratings)...")
 movie_counts = ratings_filtered['movieId'].value_counts()
 valid_movies = movie_counts[movie_counts >= 20].index
 ratings_filtered = ratings_filtered[ratings_filtered['movieId'].isin(valid_movies)]
@@ -45,14 +56,14 @@ n_movies = ratings_filtered['movieId'].nunique()
 n_ratings = len(ratings_filtered)
 sparsity = 1 - (n_ratings / (n_users * n_movies))
 
-print(f"\n4. New matrix statistics:")
+print(f"\n5. New matrix statistics:")
 print(f"  Matrix dimensions: {n_users:,} users × {n_movies:,} movies")
 print(f"  Filled cells: {n_ratings:,}")
 print(f"  Sparsity: {sparsity * 100:.4f}%")
 print(f"  Density: {(1 - sparsity) * 100:.4f}%")
 
 # Remap user and movie IDs to be contiguous (0, 1, 2, ...)
-print("\n5. Remapping IDs to contiguous range...")
+print("\n6. Remapping IDs to contiguous range...")
 user_id_map = {old_id: new_id for new_id, old_id in enumerate(ratings_filtered['userId'].unique())}
 movie_id_map = {old_id: new_id for new_id, old_id in enumerate(ratings_filtered['movieId'].unique())}
 
@@ -63,7 +74,7 @@ print(f"  User IDs remapped: 0 to {ratings_filtered['userId'].max()}")
 print(f"  Movie IDs remapped: 0 to {ratings_filtered['movieId'].max()}")
 
 # Split into train and test sets (80/20 split)
-print("\n6. Creating train/test split (80/20)...")
+print("\n7. Creating train/test split (80/20)...")
 np.random.seed(42)  # For reproducibility
 
 # Shuffle the data
@@ -86,7 +97,7 @@ test_movies = set(test_data['movieId'].unique())
 users_only_in_test = test_users - train_users
 movies_only_in_test = test_movies - train_movies
 
-print(f"\n7. Checking data consistency...")
+print(f"\n8. Checking data consistency...")
 print(f"  Users only in test set: {len(users_only_in_test)}")
 print(f"  Movies only in test set: {len(movies_only_in_test)}")
 
@@ -100,7 +111,7 @@ if len(users_only_in_test) > 0 or len(movies_only_in_test) > 0:
     print(f"  New test set size: {len(test_data):,} ratings")
 
 # Save processed datasets
-print("\n8. Saving processed datasets...")
+print("\n9. Saving processed datasets...")
 output_dir = '../data/processed/'
 os.makedirs(output_dir, exist_ok=True)
 
@@ -130,8 +141,10 @@ movies_filtered.to_csv(output_dir + 'movies_filtered.csv', index=False)
 print(f"  ✓ Saved: movies_filtered.csv")
 
 # Save statistics summary
-print("\n9. Saving statistics summary...")
+print("\n10. Saving statistics summary...")
 stats = {
+    'date_range_start': '2010-01-01',
+    'date_range_end': '2015-12-31',
     'original_ratings': len(ratings),
     'original_users': ratings['userId'].nunique(),
     'original_movies': ratings['movieId'].nunique(),
@@ -154,8 +167,3 @@ print("\n" + "=" * 60)
 print("DATA PREPARATION COMPLETED!")
 print("=" * 60)
 print(f"\nProcessed files saved in: {output_dir}")
-print("\nNext steps:")
-print("1. Implement Collaborative Filtering (1990s baseline)")
-print("2. Implement Matrix Factorization (2000s/2010s)")
-print("3. Implement Transformer model (2020s)")
-print("4. Compare metrics across all models")

@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
+import os
 
 # Visualization settings
 plt.style.use('seaborn-v0_8-darkgrid')
@@ -15,12 +16,20 @@ print("=" * 60)
 # Load datasets
 print("\n1. Loading datasets...")
 try:
-    ratings = pd.read_csv('../data/rating.csv')
-    movies = pd.read_csv('../data/movie.csv')
-    tags = pd.read_csv('../data/tag.csv')
-    links = pd.read_csv('../data/link.csv')
-    genome_scores = pd.read_csv('../data/genome_scores.csv')
-    genome_tags = pd.read_csv('../data/genome_tags.csv')
+    if os.path.exists('../data/processed/ratings_filtered.csv'):
+        print("Using processed data...")
+        ratings = pd.read_csv('../data/processed/ratings_filtered.csv')
+        movies = pd.read_csv('../data/processed/movies_filtered.csv')
+    else:
+        print("Using original data...")
+        ratings = pd.read_csv('../data/rating.csv')
+        movies = pd.read_csv('../data/movie.csv')
+
+    tags = pd.read_csv('../data/tag.csv') if os.path.exists('../data/tag.csv') else pd.DataFrame()
+    links = pd.read_csv('../data/link.csv') if os.path.exists('../data/link.csv') else pd.DataFrame()
+    genome_scores = pd.read_csv('../data/genome-scores.csv') if os.path.exists('../data/genome-scores.csv') else pd.DataFrame()
+    genome_tags = pd.read_csv('../data/genome-tags.csv') if os.path.exists('../data/genome-tags.csv') else pd.DataFrame()
+    
     print("✓ All files loaded successfully!")
 except Exception as e:
     print(f"✗ Error loading files: {e}")
@@ -146,7 +155,3 @@ print("✓ Charts saved to: ../charts/exploratory_analysis.png")
 print("\n" + "=" * 60)
 print("ANALYSIS COMPLETED!")
 print("=" * 60)
-print("\nNext steps:")
-print("1. Analyze generated charts")
-print("2. Prepare data subset for experiments")
-print("3. Implement recommendation models")
