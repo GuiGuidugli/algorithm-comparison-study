@@ -22,8 +22,8 @@ sample_predictions = pd.read_csv('../results/svd_sample_predictions.csv')
 print(f"✓ Loaded results and {len(sample_predictions)} sample predictions")
 
 # Create figure with subplots
-fig = plt.figure(figsize=(16, 12))
-gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
+fig = plt.figure(figsize=(18, 14))
+gs = fig.add_gridspec(3, 3, hspace=0.4, wspace=0.35, top=0.95, bottom=0.05, left=0.07, right=0.97)
 
 # ============================================================================
 # 1. Prediction vs Actual Scatter Plot
@@ -181,8 +181,7 @@ ax6.set_xticks([0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0])
 ax7 = fig.add_subplot(gs[2, 1:])
 ax7.axis('off')
 
-arch_text = f"""
-SVD MODEL ARCHITECTURE
+arch_text = f"""SVD MODEL ARCHITECTURE
 
 User-Movie Rating Matrix (Sparse)
        ↓
@@ -203,13 +202,12 @@ COLD START HANDLING:
 • Cold User Threshold: ≤{results['cold_user_threshold']} ratings
 • Cold Movie Threshold: ≤{results['cold_movie_threshold']} ratings
 • Cold Start Score: {results['cold_start_score']:.4f}
-  (0 = no degradation, 1 = complete failure)
-"""
+  (0 = no degradation, 1 = complete failure)"""
 
 ax7.text(0.5, 0.5, arch_text, transform=ax7.transAxes,
-        fontsize=11, verticalalignment='center', horizontalalignment='center',
+        fontsize=10, verticalalignment='center', horizontalalignment='center',
         family='monospace',
-        bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.8))
+        bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.8, pad=0.8))
 
 # ============================================================================
 # Save figure
