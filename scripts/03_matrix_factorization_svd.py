@@ -7,9 +7,9 @@ import time
 import json
 import os
 
-print("=" * 70)
-print("MATRIX FACTORIZATION (SVD) - 2000s/2010s ERA")
-print("=" * 70)
+print("=" * 60)
+print("MATRIX FACTORIZATION (SVD)")
+print("=" * 60)
 
 # Load processed data
 print("\n1. Loading processed datasets...")

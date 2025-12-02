@@ -232,7 +232,7 @@ rmse_values = [results['warm_rmse'], results['cold_user_rmse'], results['cold_mo
 colors = ['#06A77D', '#F77F00', '#D62828']
 
 bars = ax3.bar(categories, rmse_values, color=colors, alpha=0.8, edgecolor='black', linewidth=2)
-ax3.set_ylabel('RMSE', fontsize=13, fontweight='bold')
+ax3.set_ylabel('Cold Start RMSE', fontsize=13, fontweight='bold')
 ax3.set_title('KPI 3: Cold Start Performance - Degradation Analysis', 
              fontsize=14, fontweight='bold', color='#D62828', pad=10)
 ax3.grid(axis='y', alpha=0.3)
