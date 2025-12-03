@@ -33,10 +33,10 @@ gs = fig.add_gridspec(4, 3, hspace=0.5, wspace=0.4, top=0.94, bottom=0.05, left=
 # KPI 1: RMSE
 ax_kpi1 = fig.add_subplot(gs[0, 0])
 ax_kpi1.axis('off')
-ax_kpi1.text(0.5, 0.6, 'RMSE', ha='center', va='center', fontsize=18, fontweight='bold', transform=ax_kpi1.transAxes)
-ax_kpi1.text(0.5, 0.3, f'{results["rmse"]:.4f}', ha='center', va='center', fontsize=36, fontweight='bold', 
+ax_kpi1.text(0.5, 0.7, 'RMSE', ha='center', va='center', fontsize=18, fontweight='bold', transform=ax_kpi1.transAxes)
+ax_kpi1.text(0.5, 0.45, f'{results["rmse"]:.4f}', ha='center', va='center', fontsize=36, fontweight='bold', 
             color='#2E86AB', transform=ax_kpi1.transAxes)
-ax_kpi1.text(0.5, 0.05, 'Root Mean Squared Error', ha='center', va='center', fontsize=10, 
+ax_kpi1.text(0.5, 0.25, 'Root Mean Squared Error', ha='center', va='center', fontsize=10, 
             style='italic', transform=ax_kpi1.transAxes)
 rect1 = plt.Rectangle((0.05, 0.05), 0.9, 0.9, transform=ax_kpi1.transAxes, 
                        fill=False, edgecolor='#2E86AB', linewidth=3)
@@ -45,10 +45,10 @@ ax_kpi1.add_patch(rect1)
 # KPI 2: Precision@10
 ax_kpi2 = fig.add_subplot(gs[0, 1])
 ax_kpi2.axis('off')
-ax_kpi2.text(0.5, 0.6, 'Precision@10', ha='center', va='center', fontsize=18, fontweight='bold', transform=ax_kpi2.transAxes)
-ax_kpi2.text(0.5, 0.3, f'{results["precision_at_10"]:.4f}', ha='center', va='center', fontsize=36, fontweight='bold', 
+ax_kpi2.text(0.5, 0.7, 'Precision@10', ha='center', va='center', fontsize=18, fontweight='bold', transform=ax_kpi2.transAxes)
+ax_kpi2.text(0.5, 0.45, f'{results["precision_at_10"]:.4f}', ha='center', va='center', fontsize=36, fontweight='bold', 
             color='#06A77D', transform=ax_kpi2.transAxes)
-ax_kpi2.text(0.5, 0.05, 'Top-10 Recommendation Quality', ha='center', va='center', fontsize=10, 
+ax_kpi2.text(0.5, 0.25, 'Top-10 Recommendation Quality', ha='center', va='center', fontsize=10, 
             style='italic', transform=ax_kpi2.transAxes)
 rect2 = plt.Rectangle((0.05, 0.05), 0.9, 0.9, transform=ax_kpi2.transAxes, 
                        fill=False, edgecolor='#06A77D', linewidth=3)
@@ -57,10 +57,10 @@ ax_kpi2.add_patch(rect2)
 # KPI 3: Cold Start Score
 ax_kpi3 = fig.add_subplot(gs[0, 2])
 ax_kpi3.axis('off')
-ax_kpi3.text(0.5, 0.6, 'Cold Start Score', ha='center', va='center', fontsize=18, fontweight='bold', transform=ax_kpi3.transAxes)
-ax_kpi3.text(0.5, 0.3, f'{results["cold_start_score"]:.4f}', ha='center', va='center', fontsize=36, fontweight='bold', 
+ax_kpi3.text(0.5, 0.7, 'Cold Start Score', ha='center', va='center', fontsize=18, fontweight='bold', transform=ax_kpi3.transAxes)
+ax_kpi3.text(0.5, 0.45, f'{results["cold_start_score"]:.4f}', ha='center', va='center', fontsize=36, fontweight='bold', 
             color='#D62828', transform=ax_kpi3.transAxes)
-ax_kpi3.text(0.5, 0.05, 'Performance Degradation (lower is better)', ha='center', va='center', fontsize=10, 
+ax_kpi3.text(0.5, 0.25, 'Performance Degradation (lower is better)', ha='center', va='center', fontsize=10, 
             style='italic', transform=ax_kpi3.transAxes)
 rect3 = plt.Rectangle((0.05, 0.05), 0.9, 0.9, transform=ax_kpi3.transAxes, 
                        fill=False, edgecolor='#D62828', linewidth=3)
@@ -98,29 +98,30 @@ R²:   {results['r2_score']:.4f}
 
 Lower is better
 Perfect = 0"""
-ax1.text(0.02, 0.98, stats_text, transform=ax1.transAxes, fontsize=10, 
-        verticalalignment='top', fontfamily='monospace',
-        bbox=dict(boxstyle='round', facecolor='white', alpha=0.95, edgecolor='#2E86AB', linewidth=2))
+ax1.text(1.475, 0.5, stats_text, transform=ax1.transAxes,
+        fontsize=9.5, verticalalignment='center', horizontalalignment='center',
+        fontfamily='monospace',
+        bbox=dict(boxstyle='round', facecolor='white', alpha=0.95, edgecolor='#2E86AB', linewidth=2.5, pad=0.6))
 
 # ============================================================================
 # KPI 1 SUPPORTING: Error Distribution
 # ============================================================================
-ax1b = fig.add_subplot(gs[1, 2])
+# ax1b = fig.add_subplot(gs[1, 2])
 
-errors = sample_predictions['error']
-ax1b.hist(errors, bins=40, edgecolor='black', alpha=0.7, color='#2E86AB')
-ax1b.axvline(0, color='red', linestyle='--', linewidth=2.5, label='Zero error')
-ax1b.set_xlabel('Prediction Error', fontsize=11, fontweight='bold')
-ax1b.set_ylabel('Frequency', fontsize=11, fontweight='bold')
-ax1b.set_title('Error Distribution', fontsize=12, fontweight='bold', pad=10)
-ax1b.legend(fontsize=9)
-ax1b.grid(alpha=0.3, axis='y')
+# errors = sample_predictions['error']
+# ax1b.hist(errors, bins=40, edgecolor='black', alpha=0.7, color='#2E86AB')
+# ax1b.axvline(0, color='red', linestyle='--', linewidth=2.5, label='Zero error')
+# ax1b.set_xlabel('Prediction Error', fontsize=11, fontweight='bold')
+# ax1b.set_ylabel('Frequency', fontsize=11, fontweight='bold')
+# ax1b.set_title('Error Distribution', fontsize=12, fontweight='bold', pad=10)
+# ax1b.legend(fontsize=9)
+# ax1b.grid(alpha=0.3, axis='y')
 
-mean_error = errors.mean()
-std_error = errors.std()
-ax1b.text(0.05, 0.95, f"μ = {mean_error:.4f}\nσ = {std_error:.4f}", 
-        transform=ax1b.transAxes, fontsize=10, verticalalignment='top', fontfamily='monospace',
-        bbox=dict(boxstyle='round', facecolor='lightblue', alpha=0.85))
+# mean_error = errors.mean()
+# std_error = errors.std()
+# ax1b.text(0.05, 0.95, f"μ = {mean_error:.4f}\nσ = {std_error:.4f}", 
+#         transform=ax1b.transAxes, fontsize=10, verticalalignment='top', fontfamily='monospace',
+#         bbox=dict(boxstyle='round', facecolor='lightblue', alpha=0.85))
 
 # ============================================================================
 # KPI 2 DETAIL: Precision@K for different K values
@@ -219,7 +220,7 @@ Perfect = 1.0000"""
 ax2b.text(0.5, 0.5, explanation, transform=ax2b.transAxes,
          fontsize=9.5, verticalalignment='center', horizontalalignment='center',
          fontfamily='monospace',
-         bbox=dict(boxstyle='round', facecolor='#E8F5E9', alpha=0.95, 
+         bbox=dict(boxstyle='round', facecolor='white', alpha=0.95, 
                   edgecolor='#06A77D', linewidth=2.5, pad=0.6))
 
 # ============================================================================
@@ -250,18 +251,14 @@ degradation_user = ((results['cold_user_rmse'] - results['warm_rmse']) / results
 degradation_movie = ((results['cold_movie_rmse'] - results['warm_rmse']) / results['warm_rmse']) * 100
 
 ax3.annotate(f'+{degradation_user:.1f}%', 
-            xy=(1, results['cold_user_rmse']), 
-            xytext=(1, results['cold_user_rmse'] + 0.15),
-            fontsize=11, fontweight='bold', color='darkred',
-            ha='center',
-            arrowprops=dict(arrowstyle='->', lw=2, color='darkred'))
+            xy=(1, results['cold_user_rmse'] * 0.5), 
+            fontsize=12, fontweight='bold', color='darkred',
+            ha='center', va='center')
 
 ax3.annotate(f'+{degradation_movie:.1f}%', 
-            xy=(2, results['cold_movie_rmse']), 
-            xytext=(2, results['cold_movie_rmse'] + 0.08),
-            fontsize=11, fontweight='bold', color='darkorange',
-            ha='center',
-            arrowprops=dict(arrowstyle='->', lw=2, color='darkorange'))
+            xy=(2, results['cold_movie_rmse']* 0.5), 
+            fontsize=12, fontweight='bold', color='darkred',
+            ha='center', va='center')
 
 # ============================================================================
 # KPI 3 SUPPORTING: Cold Start Explanation
@@ -289,10 +286,10 @@ established users.
 
 Lower is better"""
 
-ax3b.text(0.5, 0.5, cold_explanation, transform=ax3b.transAxes,
+ax3b.text(0.5, 0.6, cold_explanation, transform=ax3b.transAxes,
          fontsize=10.5, verticalalignment='center', horizontalalignment='center',
          fontfamily='monospace',
-         bbox=dict(boxstyle='round', facecolor='#FFEBEE', alpha=0.9, 
+         bbox=dict(boxstyle='round', facecolor='white', alpha=0.9, 
                   edgecolor='#D62828', linewidth=2, pad=0.8))
 
 # ============================================================================

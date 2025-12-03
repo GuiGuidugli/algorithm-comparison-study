@@ -9,9 +9,9 @@ import json
 import os
 from tqdm import tqdm
 
-print("=" * 70)
-print("TRANSFORMER MODEL - 2020s ERA")
-print("=" * 70)
+print("=" * 60)
+print("TRANSFORMER MODEL")
+print("=" * 60)
 
 # Check if GPU is available
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

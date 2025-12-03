@@ -1,0 +1,6 @@
+{
+    "model": "Transformer",
+    "era": "2020s",
+    "dataset_size": 542861,
+    "test_size": 135715,
+    "n_users": 
