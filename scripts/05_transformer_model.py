@@ -125,7 +125,7 @@ print("\n2. Preparing data loaders...")
 
 # Sample data for faster training (use 20% for demonstration)
 # Remove this sampling for full training
-SAMPLE_FRACTION = 0.2
+SAMPLE_FRACTION = 1.0
 train_sample = train_df.sample(frac=SAMPLE_FRACTION, random_state=42)
 test_sample = test_df.sample(frac=SAMPLE_FRACTION, random_state=42)
 
@@ -335,10 +335,10 @@ os.makedirs(results_dir, exist_ok=True)
 results = {
     'model': 'Transformer',
     'era': '2020s',
-    'dataset_size': len(train_sample),
-    'test_size': len(test_sample),
-    'n_users': n_users,
-    'n_movies': n_movies,
+    'dataset_size': int(len(train_sample)),
+    'test_size': int(len(test_sample)),
+    'n_users': int(n_users),
+    'n_movies': int(n_movies),
     'training_time_seconds': training_time,
     'prediction_time_seconds': prediction_time,
     'rmse': float(rmse),
@@ -350,8 +350,8 @@ results = {
     'cold_user_rmse': float(cold_user_rmse) if cold_user_rmse else None,
     'cold_movie_rmse': float(cold_movie_rmse) if cold_movie_rmse else None,
     'cold_start_score': float(cold_start_score) if cold_start_score else None,
-    'cold_user_threshold': COLD_USER_THRESHOLD,
-    'cold_movie_threshold': COLD_MOVIE_THRESHOLD,
+    'cold_user_threshold': int(COLD_USER_THRESHOLD),
+    'cold_movie_threshold': int(COLD_MOVIE_THRESHOLD),
     'embedding_dim': 64,
     'n_heads': 4,
     'n_layers': 2,
@@ -383,5 +383,3 @@ print(f"  MAE:  {mae:.4f}")
 print(f"  Precision@10: {precision_10:.4f}")
 print(f"  Training time: {training_time/60:.2f} minutes")
 print(f"\nResults saved in: {results_dir}")
-print("\nNote: Model trained on 20% sample for demonstration.")
-print("For full training, set SAMPLE_FRACTION = 1.0")
